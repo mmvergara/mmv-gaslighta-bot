@@ -19,7 +19,7 @@ export const execute = async (interaction: APIApplicationCommandInteraction): Pr
   const fields = fetchCommands.data.map((c) => {
     return { name: "/" + c.name, value: c.description + "\n \u200b" };
   });
-  console.log({});
+  
   return {
     type: 4,
     data: {

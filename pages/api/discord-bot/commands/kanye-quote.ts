@@ -9,13 +9,13 @@ export const register = new SlashCommandBuilder()
 
 export const execute = async (interaction: APIApplicationCommandInteraction): Promise<APIInteractionResponse> => {
   try {
-    const data = (await axios.get("https://api.kanye.rest/")) as AxiosResponse<{ quote: string }>;
+    const { data } = (await axios.get("https://api.kanye.rest/")) as AxiosResponse<{ quote: string }>;
     return {
       type: 4,
       data: {
         embeds: [
           {
-            title: data.data.quote || "",
+            title: data.quote || "",
             description: `- Kanye West`,
             color: 0x1d746d,
           },
