@@ -17,10 +17,11 @@ export default function Home() {
     }
   };
 
+
   return (
     <>
       <Head>
-        <title>MMV | Nextjs Discord Bot Template</title>
+        <title>MMV | Gaslighta Bot</title>
       </Head>
       <main>
         <h1>MMV | Nextjs Discord Bot Template</h1>

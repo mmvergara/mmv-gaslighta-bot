@@ -47,7 +47,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     return res.status(200).json(reply);
   } catch (error: any) {
     console.log(error);
-    console.log("SOMETHING WENT WRONG");
     return res.status(400).send({ type: 4, data: { content: "Something wen't wrong performing that command" } });
   }
 }
