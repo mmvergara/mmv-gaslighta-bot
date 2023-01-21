@@ -11,9 +11,7 @@ export const register = new SlashCommandBuilder()
 export const execute = async (interaction: APIApplicationCommandInteraction): Promise<APIInteractionResponse> => {
   const data = interaction.data as any;
   let is_nsfw = false;
-  if (data?.options) {
-    is_nsfw = data.options[0]?.value;
-  }
+  if (data?.options) is_nsfw = data.options[0]?.value;
 
   const fetchWaifu = (await discord_api.get(
     `https://api.waifu.im/search/?is_nsfw=${is_nsfw}`
