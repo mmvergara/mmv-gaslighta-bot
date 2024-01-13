@@ -11,14 +11,25 @@ import { verifyKey } from "discord-interactions";
 import getCommands from "utils/getCommands";
 import allowedMethod from "utils/check-method";
 
-export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+export default async function handler(
+  req: NextApiRequest,
+  res: NextApiResponse
+) {
   // Check method
-  if (!allowedMethod(req, "POST")) return res.status(401).end("Method not allowed");
-
+  if (!allowedMethod(req, "POST"))
+    return res.status(401).end("Method not allowed");
   try {
     // Verify discord request
-    const signature = req.headers["x-signature-ed25519"] as string | Uint8Array | ArrayBuffer | Buffer;
-    const timestamp = req.headers["x-signature-timestamp"] as string | Uint8Array | ArrayBuffer | Buffer;
+    const signature = req.headers["x-signature-ed25519"] as
+      | string
+      | Uint8Array
+      | ArrayBuffer
+      | Buffer;
+    const timestamp = req.headers["x-signature-timestamp"] as
+      | string
+      | Uint8Array
+      | ArrayBuffer
+      | Buffer;
     const rawBody = await rawBodyToString(req);
     const isValid = verifyKey(rawBody, signature, timestamp, PUBLIC_KEY);
     if (!isValid) return res.status(401).end("invalid request");
@@ -28,7 +39,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
     // Check if the interaction type is a ping
     // PING message, respond with ACK (part of Discord's security and authorization protocol)
-    if (interactionNew.type === InteractionType.Ping) return res.status(200).json({ type: 1 });
+    if (interactionNew.type === InteractionType.Ping)
+      return res.status(200).json({ type: 1 });
 
     // If the interaction type is not a ping it is assumed to be a application command
     const interaction = interactionNew as APIApplicationCommandInteraction;
@@ -47,7 +59,10 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     return res.status(200).json(reply);
   } catch (error: any) {
     console.log(error);
-    return res.status(400).send({ type: 4, data: { content: "Something wen't wrong performing that command" } });
+    return res.status(400).send({
+      type: 4,
+      data: { content: "Something wen't wrong performing that command" },
+    });
   }
 }
 
